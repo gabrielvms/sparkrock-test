@@ -21,11 +21,11 @@ namespace WebApi.Controllers
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(CurrencyExchangeRate))]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] string baseCurrency = "USD")
         {
             _logger.LogInformation("Get data for {type}", nameof(CurrencyExchangeRate));
 
-            var rates = await _currencyExchangeService.GetExchangeRatesAsync();
+            var rates = await _currencyExchangeService.GetExchangeRatesAsync(baseCurrency);
 
             _logger.LogInformation("Successfully got data for {type}", nameof(CurrencyExchangeRate));
             return Ok(rates);

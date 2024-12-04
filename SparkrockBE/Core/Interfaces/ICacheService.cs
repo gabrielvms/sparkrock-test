@@ -4,6 +4,6 @@ namespace Core.Interfaces
 {
     public interface ICacheService
     {
-        Task<CurrencyExchangeRate> GetOrSetCurrencyExchangeRate();
+        Task<CurrencyExchangeRate> GetOrSetLatestExchangeRate(string baseCurrency);
     }
 }

@@ -16,11 +16,11 @@ namespace Application.Services
             _logger = logger;
         }
 
-        public async Task<CurrencyExchangeRate> GetExchangeRatesAsync()
+        public async Task<CurrencyExchangeRate> GetExchangeRatesAsync(string baseCurrency)
         {
             _logger.LogInformation("Get data from ExchangeService for {type}", nameof(CurrencyExchangeRate));
 
-            return await _cacheService.GetOrSetCurrencyExchangeRate();
+            return await _cacheService.GetOrSetLatestExchangeRate(baseCurrency);
         }
     }
 }

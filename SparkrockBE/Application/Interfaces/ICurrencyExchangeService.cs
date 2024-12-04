@@ -4,6 +4,6 @@ namespace Application.Interfaces
 {
     public interface ICurrencyExchangeService
     {
-        Task<CurrencyExchangeRate> GetExchangeRatesAsync();
+        Task<CurrencyExchangeRate> GetExchangeRatesAsync(string baseCurrency);
     }
 }

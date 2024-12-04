@@ -19,20 +19,20 @@ namespace Infrastructure.Services
             _logger = logger;
         }
 
-        public async Task<CurrencyExchangeRate> GetOrSetCurrencyExchangeRate()
+        public async Task<CurrencyExchangeRate> GetOrSetLatestExchangeRate(string baseCurrency)
         {
-            _logger.LogInformation("Fetch data from API for {type}", nameof(CurrencyExchangeRate));
+            _logger.LogInformation("Fetch data from API for {type}:{currency}", nameof(CurrencyExchangeRate), baseCurrency);
 
-            var rates = _cache.Get<CurrencyExchangeRate>(nameof(CurrencyExchangeRate));
+            var rates = _cache.Get<CurrencyExchangeRate>($"{nameof(CurrencyExchangeRate)}:{baseCurrency}");
             if (rates is not null)
             {
-                _logger.LogInformation("Data found in cache for {type}", nameof(CurrencyExchangeRate));
+                _logger.LogInformation("Data found in cache for {type}:{currency}", nameof(CurrencyExchangeRate), baseCurrency);
                 return rates;
             }
 
-            _logger.LogInformation("Data not found in cache for {type}, requesting from API", nameof(CurrencyExchangeRate));
-            rates = await _currencyExchangeApiClient.FetchRatesAsync();
-            _cache.Set(nameof(CurrencyExchangeRate), rates, TimeSpan.FromMinutes(1));
+            _logger.LogInformation("Data not found in cache for {type}:{currency}, requesting from API", nameof(CurrencyExchangeRate), baseCurrency);
+            rates = await _currencyExchangeApiClient.FetchRatesAsync(baseCurrency);
+            _cache.Set($"{nameof(CurrencyExchangeRate)}:{baseCurrency}", rates, TimeSpan.FromMinutes(1));
 
             return rates;
         }
