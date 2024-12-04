@@ -22,21 +22,12 @@ namespace WebApi.Controllers
         [ProducesResponseType(500)]
         public async Task<IActionResult> Get()
         {
-            try
-            {
-                _logger.LogInformation("Fetching exchange rates");
+            _logger.LogInformation("Fetching exchange rates");
 
-                var rates = await _currencyExchangeService.GetExchangeRatesAsync();
+            var rates = await _currencyExchangeService.GetExchangeRatesAsync();
 
-                _logger.LogInformation("Exchange rates fetched successfully.");
-                return Ok(rates);
-            }
-            catch(Exception ex)
-            {
-                _logger.LogError(ex, "Error occurred while fetching exchange rates.");
-                return Problem("An unexpected error occurred while processing your request.");
-            }
-
+            _logger.LogInformation("Exchange rates fetched successfully.");
+            return Ok(rates);
         }
 
     }

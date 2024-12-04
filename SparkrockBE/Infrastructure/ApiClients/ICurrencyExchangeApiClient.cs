@@ -5,7 +5,7 @@ namespace Infrastructure.ApiClients
 {
     public interface ICurrencyExchangeApiClient
     {
-        [Get("/latests")]
+        [Get("/latest")]
         Task<CurrencyExchangeRate> FetchRatesAsync();
     }
 }

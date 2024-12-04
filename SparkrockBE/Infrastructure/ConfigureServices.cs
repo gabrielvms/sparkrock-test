@@ -11,6 +11,7 @@ namespace Infrastructure
     {
         public static void AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddMemoryCache();
             services.Configure<CurrencyExchangeApiOptions>(configuration.GetSection(CurrencyExchangeApiOptions.SettingsSection));
             services.AddRefitClient<ICurrencyExchangeApiClient, CurrencyExchangeApiOptions>();
         }

@@ -1,5 +1,5 @@
 ﻿using Core.Entities;
-using Infrastructure.Interfaces;
+using Infrastructure.ApiClients;
 using Microsoft.Extensions.Logging;
 
 namespace Application.Services
