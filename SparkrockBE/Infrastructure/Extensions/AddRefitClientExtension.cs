@@ -10,6 +10,9 @@ namespace Infrastructure.Extensions
     {
         public static void AddRefitClient<T, TOptions>(this IServiceCollection services) where T : class where TOptions : BaseApiOptions
         {
+            services.AddSingleton<HttpLoggingHandler>();
+            services.AddSingleton<AuthHeaderHandler>();
+
             services
                 .AddRefitClient<T>().ConfigureHttpClient((serviceProvider, httpClient) =>
                 {
@@ -18,7 +21,7 @@ namespace Infrastructure.Extensions
                     httpClient.Timeout = apiOptions.Timeout;
                 })
                 .AddHttpMessageHandler<HttpLoggingHandler>()
-                .Services.AddSingleton<HttpLoggingHandler>();
+                .AddHttpMessageHandler<AuthHeaderHandler>();
         }
     }
 }
