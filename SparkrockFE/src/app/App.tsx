@@ -1,14 +1,26 @@
 import { FunctionComponent } from 'preact';
 import { Router, route } from 'preact-router';
-import { AppBar, Toolbar, Typography, Button, Box, Autocomplete, TextField } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, Box, InputLabel, MenuItem, Select, SelectChangeEvent, FormControl } from '@mui/material';
 import Home from '../pages/home/Home';
 import Charts from '../pages/charts/Charts';
 import NotFoundRedirect from './components/NotFoundRedirect';
-import { CURRENCIES } from '../shared/constants';
-
+import { CURRENCIES_INFOS } from '../shared/constants';
+import { CurrencyProvider, useGlobalCurrency } from '../shared/providers';
 
 const App: FunctionComponent = () => {
+    return (
+        <CurrencyProvider>
+            <AppWithCurrencyProvider />
+        </CurrencyProvider>
+    )
+}
 
+const AppWithCurrencyProvider: FunctionComponent = () => {
+    const { currency, setCurrency } = useGlobalCurrency();
+
+    const handleChange = ({ target }: SelectChangeEvent) => {
+        setCurrency((target as EventTarget & { value: string }).value as string);
+    };
     const handleNavigation = (_route: string) => {
         route(_route)
     }
@@ -53,12 +65,21 @@ const App: FunctionComponent = () => {
                             Charts
                         </Button>
                     </Box>
-                    <Autocomplete
-                        disablePortal
-                        options={CURRENCIES}
-                        sx={{ width: 150, marginRight: "0.5rem" }}
-                        renderInput={(params) => <TextField {...params} label="Currency" />}
-                    />
+                    <FormControl sx={{ m: 1, minWidth: 150 }}>
+                        <InputLabel id="currency-dropdown-label">Currency</InputLabel>
+                        <Select
+                            labelId="currency-dropdown-label"
+                            id="currency-dropdown"
+                            value={currency}
+                            onChange={handleChange}
+                            sx={{ width: 150 }}
+                            label="Currency"
+                        >
+                            {CURRENCIES_INFOS.map((currency) => (
+                                <MenuItem value={currency.code}>{`${currency.code} (${currency.symbol})`}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                 </Toolbar>
             </AppBar>
             <Router>
@@ -68,6 +89,5 @@ const App: FunctionComponent = () => {
             </Router>
         </>
     )
-}
-
+};
 export default App;

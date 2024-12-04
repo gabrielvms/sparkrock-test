@@ -6,6 +6,6 @@ namespace Interface.ApiClients
     public interface ICurrencyExchangeApiClient
     {
         [Get("/latest")]
-        Task<CurrencyExchangeRate> FetchRatesAsync([Query] string @base, [Query] string currencies = "USD,EUR,GBP,JPY,CNY,BRL,SOL,USDT,BTC,ETH");
+        Task<CurrencyExchangeRate> FetchRatesAsync([Query] string @base, [Query] string currencies = "USD,EUR,GBP,JPY,CNY,BRL,SOL,XRP,BTC,ETH");
     }
 }

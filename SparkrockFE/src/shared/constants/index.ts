@@ -1,4 +1,4 @@
-import { CURRENCIES } from "./currencies";
 import { CURRENCIES_INFOS } from "./currenciesInfos";
+import { DEFAULT_RATES } from "./defaultRates";
 
-export { CURRENCIES, CURRENCIES_INFOS };
+export { CURRENCIES_INFOS, DEFAULT_RATES };

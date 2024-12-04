@@ -47,8 +47,8 @@ export const CURRENCIES_INFOS: CurrencyInfo[] = [
         symbol: "SOL",
     },
     {
-        code: "USDT",
-        name: "Tether",
-        symbol: "USDT",
+        code: "XRP",
+        name: "Ripple",
+        symbol: "XRP",
     }
 ]

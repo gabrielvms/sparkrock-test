@@ -10,5 +10,6 @@ export const fetchLatestRates = async (currency: string) => {
                 baseCurrency: currency
             }
         })
-        .then(res => res.data);
+        .then(res => res.data)
+        .catch(err => console.error("Failed to fetch rates:", err));
 }
