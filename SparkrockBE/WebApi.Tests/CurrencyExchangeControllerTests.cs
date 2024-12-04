@@ -58,13 +58,8 @@ namespace WebApi.Tests
             // Arrange: Mock an exception in the service call
             _mockCurrencyExchangeService.Setup(service => service.GetExchangeRatesAsync()).ThrowsAsync(new Exception("API failure"));
 
-            // Act: Call the controller method
-            var result = await _controller.Get();
-
-            // Assert: Verify the result is a 500 status code
-            var statusCodeResult = result as StatusCodeResult;
-            Assert.NotNull(statusCodeResult);
-            Assert.Equal(500, statusCodeResult.StatusCode);
+            // Act/Assert: Call the controller method
+            var exception =  await Assert.ThrowsAsync<Exception>(_controller.Get);
         }
     }
 }
