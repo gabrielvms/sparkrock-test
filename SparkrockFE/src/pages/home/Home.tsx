@@ -16,13 +16,13 @@ const Home: FunctionComponent = () => {
         date: new Date()
     });
 
-    const fetchData = useCallback(async () => {
+    const fetchData = () => {
         fetchLatestRates(currency)
             .then(res => {
                 rates.value = res as CurrencyExchangeRate;
             })
             .catch(err => console.error("Failed to fetch data: ", err));
-    }, [currency]);
+    };
 
     useEffect(() => {
 

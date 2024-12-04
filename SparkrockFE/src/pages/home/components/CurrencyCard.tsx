@@ -9,7 +9,6 @@ type CurrencyCardProps = {
 } & CurrencyInfo;
 
 const CurrencyCard: FunctionComponent<CurrencyCardProps> = ({ code, name, symbol, value }) => {
-
     return (
         <Card sx={{ width: 170 }}>
             <CardContent>

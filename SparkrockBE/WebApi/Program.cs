@@ -14,7 +14,7 @@ builder.AddLogging();
 builder.Services.AddServices(builder.Configuration);
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(corsPolicy, policy => policy.WithOrigins("http://localhost:5173").AllowAnyMethod().AllowAnyHeader());
+    options.AddPolicy(corsPolicy, policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 });
 
 // Configure the HTTP request pipeline
