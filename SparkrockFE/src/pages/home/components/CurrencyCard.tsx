@@ -13,7 +13,7 @@ const CurrencyCard: FunctionComponent<CurrencyCardProps> = ({ code, name, symbol
     return (
         <Card sx={{ width: 170 }}>
             <CardContent>
-                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1, minHeight: "7.21rem" }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1, minHeight: "8.5rem" }}>
                     {/* Currency Code */}
                     <Typography variant="h6" component="div" fontWeight="bold" align='center' >
                         {code} ({symbol})
