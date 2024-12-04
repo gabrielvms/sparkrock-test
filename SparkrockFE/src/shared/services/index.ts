@@ -1,3 +1,3 @@
-import { fetchLatestRates } from "./apiServices";
+import { fetchLatestRates } from "./currencyExchangeApiServices";
 
 export { fetchLatestRates };

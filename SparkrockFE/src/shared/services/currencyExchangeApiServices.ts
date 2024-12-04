@@ -1,7 +1,7 @@
 import axios from "axios"
 import { CurrencyExchangeRate } from "../models/currencyExchangeRate";
 
-const BASE_URL = "https://api.fxratesapi.com";
+const BASE_URL = "http://localhost:5218/api/currencyExchange";
 
 export const fetchLatestRates = async (currency: string) => {
     return axios
