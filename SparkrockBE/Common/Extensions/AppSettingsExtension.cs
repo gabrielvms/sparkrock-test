@@ -8,9 +8,10 @@ namespace Common.Extensions
         public static void AddEnvironmentConfig(this WebApplicationBuilder builder)
         {
             builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
-                                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                                 .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
-                                 .AddEnvironmentVariables();
+                                .AddJsonFile("secrets.json", optional:false, reloadOnChange:true)
+                                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                                .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+                                .AddEnvironmentVariables();
 
         }
     }
