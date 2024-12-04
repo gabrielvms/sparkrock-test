@@ -36,11 +36,11 @@ namespace Application.Tests
             };
 
             _mockCacheService
-                .Setup(service => service.GetOrSetCurrencyExchangeRate())
+                .Setup(service => service.GetOrSetLatestExchangeRate(It.IsAny<string>()))
                 .ReturnsAsync(expectedRates);
 
             // Act
-            var result = await _currencyExchangeService.GetExchangeRatesAsync();
+            var result = await _currencyExchangeService.GetExchangeRatesAsync(It.IsAny<string>());
 
             // Assert
             Assert.NotNull(result);
@@ -48,7 +48,7 @@ namespace Application.Tests
             Assert.Equal(expectedRates.Base, result.Base);
             Assert.Equal(expectedRates.Rates, result.Rates);
 
-            _mockCacheService.Verify(service => service.GetOrSetCurrencyExchangeRate(), Times.Once);
+            _mockCacheService.Verify(service => service.GetOrSetLatestExchangeRate(It.IsAny<string>()), Times.Once);
             _mockLogger.Verify(
                 logger => logger.Log(
                     LogLevel.Information,
@@ -64,16 +64,16 @@ namespace Application.Tests
         {
             // Arrange
             _mockCacheService
-                .Setup(service => service.GetOrSetCurrencyExchangeRate())
+                .Setup(service => service.GetOrSetLatestExchangeRate(It.IsAny<string>()))
                 .ThrowsAsync(new InvalidOperationException("Cache service error"));
 
             // Act & Assert
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
-                _currencyExchangeService.GetExchangeRatesAsync());
+                _currencyExchangeService.GetExchangeRatesAsync(It.IsAny<string>()));
 
             Assert.Equal("Cache service error", exception.Message);
 
-            _mockCacheService.Verify(service => service.GetOrSetCurrencyExchangeRate(), Times.Once);
+            _mockCacheService.Verify(service => service.GetOrSetLatestExchangeRate(It.IsAny<string>()), Times.Once);
             _mockLogger.Verify(
                 logger => logger.Log(
                     LogLevel.Information,

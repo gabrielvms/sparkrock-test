@@ -37,7 +37,7 @@ namespace WebApi.Tests
                 }
             };
 
-            _mockCurrencyExchangeService.Setup(service => service.GetExchangeRatesAsync()).ReturnsAsync(exchangeRates);
+            _mockCurrencyExchangeService.Setup(service => service.GetExchangeRatesAsync(It.IsAny<string>())).ReturnsAsync(exchangeRates);
 
             // Act: Call the controller method
             var result = await _controller.Get();
@@ -56,10 +56,10 @@ namespace WebApi.Tests
         public async Task Get_ReturnsInternalServerError_WhenExceptionOccurs()
         {
             // Arrange: Mock an exception in the service call
-            _mockCurrencyExchangeService.Setup(service => service.GetExchangeRatesAsync()).ThrowsAsync(new Exception("API failure"));
+            _mockCurrencyExchangeService.Setup(service => service.GetExchangeRatesAsync(It.IsAny<string>())).ThrowsAsync(new Exception("API failure"));
 
             // Act/Assert: Call the controller method
-            var exception =  await Assert.ThrowsAsync<Exception>(_controller.Get);
+            var exception =  await Assert.ThrowsAsync<Exception>(() => _controller.Get(It.IsAny<string>()));
         }
     }
 }

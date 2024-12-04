@@ -36,11 +36,11 @@ namespace Infrastructure.Tests
             };
 
             _mockMemoryCache
-                .Setup(cache => cache.TryGetValue(nameof(CurrencyExchangeRate), out cachedRates))
+                .Setup(cache => cache.TryGetValue(It.IsAny<string>(), out cachedRates))
                 .Returns(true);
 
             // Act
-            var result = await _cacheService.GetOrSetCurrencyExchangeRate();
+            var result = await _cacheService.GetOrSetLatestExchangeRate(It.IsAny<string>());
 
             // Assert
             Assert.NotNull(result);
@@ -69,22 +69,22 @@ namespace Infrastructure.Tests
 
             object? cacheValue = null;
             _mockMemoryCache
-                .Setup(cache => cache.TryGetValue(nameof(CurrencyExchangeRate), out cacheValue))
+                .Setup(cache => cache.TryGetValue(It.IsAny<string>(), out cacheValue))
                 .Returns(false);
 
             _mockApiClient
-                .Setup(client => client.FetchRatesAsync())
+                .Setup(client => client.FetchRatesAsync(It.IsAny<string>(), It.IsAny<string>()))
                 .ReturnsAsync(apiRates);
 
             var cacheEntry = Mock.Of<ICacheEntry>();
             cacheEntry.Value = apiRates;
 
             _mockMemoryCache
-                .Setup(cache => cache.CreateEntry(nameof(CurrencyExchangeRate)))
+                .Setup(cache => cache.CreateEntry(It.IsAny<string>()))
                 .Returns(cacheEntry);
 
             // Act
-            var result = await _cacheService.GetOrSetCurrencyExchangeRate();
+            var result = await _cacheService.GetOrSetLatestExchangeRate(It.IsAny<string>());
 
             // Assert
             Assert.NotNull(result);
@@ -99,8 +99,8 @@ namespace Infrastructure.Tests
                     It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
                 Times.Once);
 
-            _mockApiClient.Verify(client => client.FetchRatesAsync(), Times.Once);
-            _mockMemoryCache.Verify(cache => cache.CreateEntry(nameof(CurrencyExchangeRate)), Times.Once);
+            _mockApiClient.Verify(client => client.FetchRatesAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            _mockMemoryCache.Verify(cache => cache.CreateEntry(It.IsAny<string>()), Times.Once);
         }
 
         [Fact]
@@ -109,16 +109,16 @@ namespace Infrastructure.Tests
             // Arrange
             object? cacheValue = null;
             _mockMemoryCache
-                .Setup(cache => cache.TryGetValue(nameof(CurrencyExchangeRate), out cacheValue))
+                .Setup(cache => cache.TryGetValue(It.IsAny<string>(), out cacheValue))
                 .Returns(false);
 
             _mockApiClient
-                .Setup(client => client.FetchRatesAsync())
+                .Setup(client => client.FetchRatesAsync(It.IsAny<string>(), It.IsAny<string>()))
                 .ThrowsAsync(new InvalidOperationException("API error"));
 
             // Act & Assert
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
-                _cacheService.GetOrSetCurrencyExchangeRate());
+                _cacheService.GetOrSetLatestExchangeRate(It.IsAny<string>()));
 
             Assert.Equal("API error", exception.Message);
 
@@ -131,7 +131,7 @@ namespace Infrastructure.Tests
                     It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
                 Times.Once);
 
-            _mockApiClient.Verify(client => client.FetchRatesAsync(), Times.Once);
+            _mockApiClient.Verify(client => client.FetchRatesAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         }
     }
 }

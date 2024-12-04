@@ -10,8 +10,7 @@ namespace WebApi
             services.AddControllers();
             services
                 .AddEndpointsApiExplorer()
-                .AddSwaggerGen()
-                .AddMemoryCache();
+                .AddSwaggerGen();
             
             services.AddApplicationServices(configuration);
 
