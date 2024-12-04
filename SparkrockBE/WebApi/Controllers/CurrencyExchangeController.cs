@@ -18,7 +18,7 @@ namespace WebApi.Controllers
             _logger = logger;
         }
         // GET: api/<CurrencyExchangeController>
-        [HttpGet]
+        [HttpGet("latest")]
         [ProducesResponseType(200, Type = typeof(CurrencyExchangeRate))]
         [ProducesResponseType(500)]
         public async Task<IActionResult> Get([FromQuery] string baseCurrency = "USD")

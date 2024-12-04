@@ -1,8 +1,8 @@
 import { signal } from "@preact/signals";
 import { useEffect } from "preact/hooks";
 import './app.css'
-import { fetchLatestRates } from "../pages/home/services/apiServices";
 import { CurrencyExchangeRate } from "../shared/models";
+import { fetchLatestRates } from "../shared/services";
 
 export function App() {
   const currency = signal("USD");

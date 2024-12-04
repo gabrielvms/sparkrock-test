@@ -7,7 +7,7 @@ export const fetchLatestRates = async (currency: string) => {
     return axios
         .get<CurrencyExchangeRate>(`${BASE_URL}/latest`, {
             params: {
-                base: currency
+                baseCurrency: currency
             }
         })
         .then(res => res.data)
