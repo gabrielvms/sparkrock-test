@@ -1,4 +1,5 @@
 ﻿using Application;
+using Application.Services;
 
 namespace WebApi
 {
@@ -13,6 +14,7 @@ namespace WebApi
                 .AddMemoryCache();
             
             services.AddApplicationServices(configuration);
+            services.AddSingleton<CurrencyExchangeService>();
 
             return services;
         }

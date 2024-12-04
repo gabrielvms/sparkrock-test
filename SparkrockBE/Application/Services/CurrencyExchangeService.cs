@@ -1,10 +1,10 @@
 ﻿using Core.Entities;
-using Infrastructure.ApiClients;
+using Core.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace Application.Services
 {
-    public class CurrencyExchangeService: ICurrencyExchangeService
+    public class CurrencyExchangeService
     {
         private readonly ICurrencyExchangeApiClient _apiClient;
         private readonly ILogger<CurrencyExchangeService> _logger;

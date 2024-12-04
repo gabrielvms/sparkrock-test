@@ -1,4 +1,5 @@
-﻿using Core.Entities;
+﻿using Application.Services;
+using Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -9,9 +10,9 @@ namespace WebApi.Controllers
     [Route("api/[controller]")]
     public class CurrencyExchangeController : ControllerBase
     {
-        private readonly ICurrencyExchangeService _currencyExchangeService;
+        private readonly CurrencyExchangeService _currencyExchangeService;
         private readonly ILogger<CurrencyExchangeController> _logger;
-        public CurrencyExchangeController(ICurrencyExchangeService currencyExchangeService, ILogger<CurrencyExchangeController> logger)
+        public CurrencyExchangeController(CurrencyExchangeService currencyExchangeService, ILogger<CurrencyExchangeController> logger)
         {
             _currencyExchangeService = currencyExchangeService;
             _logger = logger;

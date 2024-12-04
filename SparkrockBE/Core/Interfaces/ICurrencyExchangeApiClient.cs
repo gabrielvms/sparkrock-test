@@ -1,7 +1,7 @@
 ﻿using Core.Entities;
 using Refit;
 
-namespace Infrastructure.ApiClients
+namespace Core.Interfaces
 {
     public interface ICurrencyExchangeApiClient
     {
