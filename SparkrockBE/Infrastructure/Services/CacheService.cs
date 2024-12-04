@@ -32,7 +32,7 @@ namespace Infrastructure.Services
 
             _logger.LogInformation("Data not found in cache for {type}:{currency}, requesting from API", nameof(CurrencyExchangeRate), baseCurrency);
             rates = await _currencyExchangeApiClient.FetchRatesAsync(baseCurrency);
-            _cache.Set($"{nameof(CurrencyExchangeRate)}:{baseCurrency}", rates, TimeSpan.FromSeconds(10));
+            _cache.Set($"{nameof(CurrencyExchangeRate)}:{baseCurrency}", rates, TimeSpan.FromSeconds(30));
 
             return rates;
         }
