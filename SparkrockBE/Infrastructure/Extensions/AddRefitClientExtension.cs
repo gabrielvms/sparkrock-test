@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Refit;
 
-namespace Common.Extensions
+namespace Infrastructure.Extensions
 {
     public static class AddRefitClientExtension
     {

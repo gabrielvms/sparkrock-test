@@ -7,18 +7,20 @@ namespace Application.Services
 {
     public class CurrencyExchangeService: ICurrencyExchangeService
     {
-        private readonly ICurrencyExchangeApiClient _apiClient;
+        private readonly ICacheService _cacheService;
         private readonly ILogger<CurrencyExchangeService> _logger;
 
-        public CurrencyExchangeService(ICurrencyExchangeApiClient apiClient, ILogger<CurrencyExchangeService> logger)
+        public CurrencyExchangeService(ICacheService cacheService, ILogger<CurrencyExchangeService> logger)
         {
-            _apiClient = apiClient;
+            _cacheService = cacheService;
             _logger = logger;
         }
 
         public async Task<CurrencyExchangeRate> GetExchangeRatesAsync()
         {
-            return await _apiClient.FetchRatesAsync();
+            _logger.LogInformation("Get data from ExchangeService for {type}", nameof(CurrencyExchangeRate));
+
+            return await _cacheService.GetOrSetCurrencyExchangeRate();
         }
     }
 }

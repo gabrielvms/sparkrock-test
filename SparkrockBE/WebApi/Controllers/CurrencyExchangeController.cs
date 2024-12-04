@@ -1,4 +1,4 @@
-﻿using Application.Services;
+﻿using Application.Interfaces;
 using Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,9 +10,9 @@ namespace WebApi.Controllers
     [Route("api/[controller]")]
     public class CurrencyExchangeController : ControllerBase
     {
-        private readonly CurrencyExchangeService _currencyExchangeService;
+        private readonly ICurrencyExchangeService _currencyExchangeService;
         private readonly ILogger<CurrencyExchangeController> _logger;
-        public CurrencyExchangeController(CurrencyExchangeService currencyExchangeService, ILogger<CurrencyExchangeController> logger)
+        public CurrencyExchangeController(ICurrencyExchangeService currencyExchangeService, ILogger<CurrencyExchangeController> logger)
         {
             _currencyExchangeService = currencyExchangeService;
             _logger = logger;
@@ -23,11 +23,11 @@ namespace WebApi.Controllers
         [ProducesResponseType(500)]
         public async Task<IActionResult> Get()
         {
-            _logger.LogInformation("Fetching exchange rates");
+            _logger.LogInformation("Get data for {type}", nameof(CurrencyExchangeRate));
 
             var rates = await _currencyExchangeService.GetExchangeRatesAsync();
 
-            _logger.LogInformation("Exchange rates fetched successfully.");
+            _logger.LogInformation("Successfully got data for {type}", nameof(CurrencyExchangeRate));
             return Ok(rates);
         }
 

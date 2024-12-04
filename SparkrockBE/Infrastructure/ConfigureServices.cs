@@ -1,4 +1,8 @@
-﻿using Infrastructure.ApiOptions;
+﻿using Core.Interfaces;
+using Infrastructure.ApiOptions;
+using Infrastructure.Extensions;
+using Infrastructure.Services;
+using Interface.ApiClients;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +15,8 @@ namespace Infrastructure
         {
             services.AddMemoryCache();
             services.Configure<CurrencyExchangeApiOptions>(configuration.GetSection(CurrencyExchangeApiOptions.SettingsSection));
+            services.AddRefitClient<ICurrencyExchangeApiClient, CurrencyExchangeApiOptions>();
+            services.AddSingleton<ICacheService, CacheService>();
         }
     }
 }

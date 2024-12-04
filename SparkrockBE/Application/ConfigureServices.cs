@@ -1,9 +1,8 @@
-﻿using Common.Extensions;
-using Core.Interfaces;
-using Infrastructure;
-using Infrastructure.ApiOptions;
+﻿using Application.Interfaces;
+using Application.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Infrastructure;
 
 namespace Application
 {
@@ -12,7 +11,7 @@ namespace Application
         public static void AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddInfrastructureServices(configuration);
-            services.AddRefitClient<ICurrencyExchangeApiClient, CurrencyExchangeApiOptions>();
+            services.AddSingleton<ICurrencyExchangeService, CurrencyExchangeService>();
         }
     }
 }

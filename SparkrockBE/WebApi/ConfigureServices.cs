@@ -14,7 +14,6 @@ namespace WebApi
                 .AddMemoryCache();
             
             services.AddApplicationServices(configuration);
-            services.AddSingleton<CurrencyExchangeService>();
 
             return services;
         }
