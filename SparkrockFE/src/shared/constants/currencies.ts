@@ -5,8 +5,8 @@ export const CURRENCIES: string[] = [
     "JPY",  // Japanese Yen
     "CNY",  // Chinese Yuan
     "BRL",  // Brazilian Real
-    "SOL",  // Solana
-    "USDT", // Tether
     "BTC",  // Bitcoin
-    "ETH"   // Ethereum
+    "ETH",   // Ethereum
+    "SOL",  // Solana
+    "USDT" // Tether
 ];

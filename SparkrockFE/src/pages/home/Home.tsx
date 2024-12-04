@@ -2,8 +2,10 @@ import { useSignal } from "@preact/signals";
 import { useEffect } from "preact/hooks";
 import { CurrencyExchangeRate } from "../../shared/models";
 import { fetchLatestRates } from "../../shared/services";
-import { CURRENCIES } from "../../shared/constants";
 import { FunctionComponent } from "preact";
+import { CurrencyCard } from "./components";
+import { CURRENCIES_INFOS } from "../../shared/constants";
+import { Box } from "@mui/material";
 
 const Home: FunctionComponent = () => {
     const currency = useSignal("USD");
@@ -13,22 +15,32 @@ const Home: FunctionComponent = () => {
         const fetchData = async () => {
             try {
                 rates.value = await fetchLatestRates(currency.value);
-                console.log(rates.value);
             } catch (error) {
                 console.error("Failed to fetch rates:", error);
             }
         };
 
         fetchData();
-        const interval = setInterval(fetchData, 10000); // Refresh every 10 seconds
+        const interval = setInterval(fetchData, 60000); // Refresh every 10 seconds
 
         return () => clearInterval(interval); // Cleanup interval on component unmount
     }, []);
 
     return (
         <>
-            <div>{currency}</div>
-            {CURRENCIES.map((currency) => (<div>{rates.value?.rates[currency]}</div>))}
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: 2,
+                    justifyContent: 'center',
+                    padding: 2,
+                }}
+            >
+                {CURRENCIES_INFOS.map((currencyInfo) => (
+                    <CurrencyCard key={currencyInfo.code} {...currencyInfo} />
+                ))}
+            </Box>
         </>
     )
 }
