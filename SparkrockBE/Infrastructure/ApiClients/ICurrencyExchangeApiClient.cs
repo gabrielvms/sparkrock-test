@@ -1,11 +1,11 @@
 ﻿using Core.Entities;
 using Refit;
 
-namespace Infrastructure.Interfaces
+namespace Infrastructure.ApiClients
 {
     public interface ICurrencyExchangeApiClient
     {
-        [Get("/latest")]
+        [Get("/latests")]
         Task<CurrencyExchangeRate> FetchRatesAsync();
     }
 }

@@ -1,15 +1,17 @@
 ﻿using Infrastructure.ApiOptions;
-using Infrastructure.Interfaces;
+using Infrastructure.Extensions;
+using Infrastructure.ApiClients;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 
-namespace Infrastructure.Extensions
+namespace Infrastructure
 {
-    public static class AddInfrastructureExtension
+    public static class ConfigureServices
     {
         public static void AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.Configure<CurrencyExchangeApiOptions>(configuration.GetSection(CurrencyExchangeApiOptions.SettingsSection));
             services.AddRefitClient<ICurrencyExchangeApiClient, CurrencyExchangeApiOptions>();
         }
     }

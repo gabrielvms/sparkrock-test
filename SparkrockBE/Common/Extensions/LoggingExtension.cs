@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Net.Http.Headers;
 
-namespace Common.Middlewares
+namespace Common.Extensions
 {
-    public static class LoggingMiddleware
+    public static class LoggingExtension
     {
         public static void AddLogging(this WebApplicationBuilder builder)
         {
@@ -12,5 +15,6 @@ namespace Common.Middlewares
                 .AddConsole()
                 .AddDebug();
         }
+
     }
 }

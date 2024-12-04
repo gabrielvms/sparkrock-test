@@ -1,9 +1,7 @@
 ﻿using Common.Models;
-using Infrastructure.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Refit;
-using System;
 
 namespace Infrastructure.Extensions
 {

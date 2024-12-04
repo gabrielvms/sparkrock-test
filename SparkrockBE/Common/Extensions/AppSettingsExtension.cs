@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 
-namespace Common.Middlewares
+namespace Common.Extensions
 {
-    public static class AppSettingsMiddleware
+    public static class AppSettingsExtensions
     {
         public static void AddEnvironmentConfig(this WebApplicationBuilder builder)
         {

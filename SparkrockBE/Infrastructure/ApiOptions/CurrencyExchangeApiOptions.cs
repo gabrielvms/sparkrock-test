@@ -4,6 +4,6 @@ namespace Infrastructure.ApiOptions
 {
     public class CurrencyExchangeApiOptions : BaseApiOptions
     {
-        public const string SettingsSection = "CurrencyExchangeApi";
+        public const string SettingsSection = "Microservices:CurrencyExchangeApi";
     }
 }
